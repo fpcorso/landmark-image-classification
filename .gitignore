@@ -1,5 +1,6 @@
 # Project files
 data/raw/landmark_images
+data/raw/*.pt
 
 # IDE
 .idea

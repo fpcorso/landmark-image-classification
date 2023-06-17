@@ -13,6 +13,10 @@ import matplotlib.pyplot as plt
 
 
 def get_raw_data_location() -> Path:
+    return Path('data', 'raw')
+
+
+def get_landmark_data_location() -> Path:
     return Path('data', 'raw', 'landmark_images')
 
 
@@ -24,12 +28,12 @@ def download_and_extract_data() -> None:
     """
     Download and extract the data if it is not already there.
     """
-    if not os.path.exists(get_raw_data_location()):
+    if not os.path.exists(get_landmark_data_location()):
         print("Downloading dataset...")
         url = "https://udacity-dlnfd.s3-us-west-1.amazonaws.com/datasets/landmark_images.zip"
         with urllib.request.urlopen(url) as resp:
             with ZipFile(BytesIO(resp.read())) as fp:
-                fp.extractall(".")
+                fp.extractall(get_raw_data_location())
 
         print("Download complete.")
 
@@ -58,7 +62,7 @@ def get_data_loaders(
         num_workers = multiprocessing.cpu_count()
 
     data_loaders = {"train": None, "valid": None, "test": None}
-    base_path = 'landmark_images'
+    base_path = get_landmark_data_location()
     mean, std = get_data_mean_and_std()
 
     # Get our transforms.
@@ -95,11 +99,11 @@ def get_data_loaders(
 
     # Create train and validation datasets.
     train_data = datasets.ImageFolder(
-        f'{base_path}/train',
+        str(base_path / "train"),
         transform=data_transforms["train"],
     )
     valid_data = datasets.ImageFolder(
-        f'{base_path}/train',
+        str(base_path / "train"),
         transform=data_transforms["valid"],
     )
 
@@ -135,7 +139,7 @@ def get_data_loaders(
 
     # Now create the test data loader
     test_data = datasets.ImageFolder(
-        f'{base_path}/test',
+        str(base_path / "test"),
         transform=data_transforms["test"],
     )
 
@@ -156,7 +160,7 @@ def get_data_loaders(
     return data_loaders
 
 
-def get_data_mean_and_std() -> tuple:
+def get_data_mean_and_std() -> tuple[torch.Tensor, torch.Tensor]:
     """
     Returns the mean and standard deviation of the dataset.
     """
@@ -173,7 +177,7 @@ def cache_data_mean_and_std() -> None:
     Cache the mean and standard deviation of the dataset.
     """
     cache_file = get_raw_data_stats_cache_path()
-    data_folder = str(get_raw_data_location())
+    data_folder = str(get_landmark_data_location())
     if not os.path.exists(cache_file):
         print("Calculating mean and standard deviation...")
         ds = datasets.ImageFolder(
