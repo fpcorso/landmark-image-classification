@@ -13,15 +13,15 @@ import matplotlib.pyplot as plt
 
 
 def get_raw_data_location() -> Path:
-    return Path('data', 'raw')
+    return Path("data", "raw")
 
 
 def get_landmark_data_location() -> Path:
-    return Path('data', 'raw', 'landmark_images')
+    return Path("data", "raw", "landmark_images")
 
 
 def get_raw_data_stats_cache_path() -> Path:
-    return Path('data', 'raw', 'mean_and_std.pt')
+    return Path("data", "raw", "mean_and_std.pt")
 
 
 def download_and_extract_data() -> None:
