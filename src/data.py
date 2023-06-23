@@ -1,15 +1,15 @@
-from io import BytesIO
 import math
-import os
-from pathlib import Path
-import torch
-import torch.utils.data
-from torchvision import datasets, transforms
 import multiprocessing
+import os
 import urllib.request
+from io import BytesIO
+from pathlib import Path
 from zipfile import ZipFile
 
 import matplotlib.pyplot as plt
+import torch
+import torch.utils.data
+from torchvision import datasets, transforms
 
 
 def get_raw_data_location() -> Path:

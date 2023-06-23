@@ -1,4 +1,5 @@
 import typer
+
 from src.data import cache_data_mean_and_std, download_and_extract_data
 
 app = typer.Typer()
