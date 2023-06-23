@@ -98,7 +98,9 @@ def optimize(
     valid_loss_min = None
     logs = {}
 
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, threshold=0.01, patience=7, factor=0.5)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer, threshold=0.01, patience=7, factor=0.5
+    )
 
     # Early stopping parameters
     best_val_loss = float("inf")

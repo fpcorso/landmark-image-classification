@@ -1,4 +1,5 @@
 black
+isort
 mlflow
 seaborn
 torch
