@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.optim
-import pytest
 
 
 def get_loss():
