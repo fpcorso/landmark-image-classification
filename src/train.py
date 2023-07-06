@@ -2,19 +2,15 @@ import mlflow
 import torch
 from tqdm import tqdm
 
+from src.helpers import get_device
+
 
 def train_one_epoch(train_dataloader, model, optimizer, loss):
     """
     Performs one train_one_epoch epoch
     """
 
-    device = torch.device(
-        "cuda"
-        if torch.cuda.is_available()
-        else "mps"
-        if torch.backends.mps.is_available()
-        else "cpu"
-    )
+    device = get_device()
     model.to(device)
 
     model.train()
@@ -55,13 +51,7 @@ def valid_one_epoch(valid_dataloader, model, loss):
     with torch.no_grad():
         model.train()
 
-        device = torch.device(
-            "cuda"
-            if torch.cuda.is_available()
-            else "mps"
-            if torch.backends.mps.is_available()
-            else "cpu"
-        )
+        device = get_device()
         model.to(device)
 
         valid_loss = 0.0
@@ -168,13 +158,7 @@ def one_epoch_test(test_dataloader, model, loss):
         # set the model to evaluation mode
         model.eval()
 
-        device = torch.device(
-            "cuda"
-            if torch.cuda.is_available()
-            else "mps"
-            if torch.backends.mps.is_available()
-            else "cpu"
-        )
+        device = get_device()
         model.to(device)
 
         for batch_idx, (data, target) in tqdm(
