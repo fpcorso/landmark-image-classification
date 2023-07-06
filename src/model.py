@@ -8,14 +8,9 @@ class MyModel(nn.Module):
         super().__init__()
 
         self.features = nn.Sequential(
-            nn.Conv2d(3, 32, 3, padding=1),
+            nn.Conv2d(3, 64, 3, padding=1),
             nn.MaxPool2d(2, 2),
             nn.ReLU(),
-            nn.Conv2d(32, 64, 3, padding=1),
-            nn.BatchNorm2d(64),
-            nn.MaxPool2d(2, 2),
-            nn.ReLU(),
-            nn.Dropout2d(dropout),
             nn.Conv2d(64, 128, 3, padding=1),
             nn.BatchNorm2d(128),
             nn.MaxPool2d(2, 2),
@@ -27,6 +22,11 @@ class MyModel(nn.Module):
             nn.ReLU(),
             nn.Dropout2d(dropout),
             nn.Conv2d(256, 512, 3, padding=1),
+            nn.BatchNorm2d(512),
+            nn.MaxPool2d(2, 2),
+            nn.ReLU(),
+            nn.Dropout2d(dropout),
+            nn.Conv2d(512, 512, 3, padding=1),
             nn.BatchNorm2d(512),
             nn.MaxPool2d(2, 2),
             nn.ReLU(),
