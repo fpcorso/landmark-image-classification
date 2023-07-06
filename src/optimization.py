@@ -5,8 +5,7 @@ import torch.optim
 
 def get_loss():
     """
-    Get an instance of the CrossEntropyLoss (useful for classification),
-    optionally moving it to the GPU if use_cuda is set to True
+    Get an instance of the CrossEntropyLoss (useful for classification).
     """
 
     loss = nn.CrossEntropyLoss()
