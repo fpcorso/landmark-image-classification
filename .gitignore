@@ -2,6 +2,7 @@
 data/raw/landmark_images
 data/raw/*.pt
 mlruns
+checkpoints
 
 # IDE
 .idea
