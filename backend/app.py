@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from prediction import predict
 
@@ -15,8 +15,7 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-def read_root():
-    with open("../model/data/raw/landmark_images/test/07.Stonehenge/7cadd9ffc1d24563.jpg", 'rb') as f:
-        img = f.read()
-    return {"Hello": predict(img)}
+@app.get("/predict")
+async def predict_landmark(file: UploadFile):
+    img = await file.read()
+    return {"landmark": predict(img)}
