@@ -1,8 +1,8 @@
 # Project files
-data/raw/landmark_images
-data/raw/*.pt
-mlruns
-checkpoints
+model/data/raw/landmark_images
+model/data/raw/*.pt
+model/mlruns
+model/checkpoints
 
 # IDE
 .idea
