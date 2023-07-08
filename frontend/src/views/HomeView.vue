@@ -27,6 +27,7 @@
     <figure class="image is-128x128" v-if="preview">
       <img :src="image">
     </figure>
+    {{ landmark }}
   </section>
 </template>
 
@@ -37,29 +38,37 @@ export default {
   name: 'HomeView',
   data() {
     return {
+      file: null,
       image: '',
-      preview: false
+      preview: false,
+      landmark: ''
     };
   },
   methods: {
     readImage(event: Event) {
-      const file = event.target.files[0]; // Get the selected file
-      console.log(file);
-      if (file) {
+      this.file = event.target.files[0]; // Get the selected file
+      if (this.file) {
         const reader = new FileReader(); // Create a new FileReader object
         reader.onload = () => {
           this.image = reader.result; // Assign the data URL to the image property
           this.preview = true;
         };
-        reader.readAsDataURL(file); // Read the image file as a data URL
+        reader.readAsDataURL(this.file); // Read the image file as a data URL
+        this.makePrediction();
       }
     },
     makePrediction() {
       // Send image info to server using axios
-      axios.post('http://localhost:5000/predict', {
-        image: this.image
+      axios.post('http://localhost:8000/predict', {
+        image: this.file
+      }, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }).then((response) => {
-        console.log(response);
+        this.landmark = response.data.landmark;
+      }).catch((error) => {
+        console.log(error);
       });
       
     }
