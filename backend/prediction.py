@@ -22,4 +22,4 @@ def predict(image_bytes: bytes) -> str:
     _, y_hat = softmax.max(1)
     predicted_idx = int(y_hat.item())
 
-    return model.class_names[predicted_idx].split('.')[1]
+    return model.class_names[predicted_idx].split('.')[1].replace('_', ' ')
