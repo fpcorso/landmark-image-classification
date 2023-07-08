@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from prediction import predict
 
 app = FastAPI(docs_url=None, redoc_url=None)
 
@@ -16,4 +17,6 @@ app.add_middleware(
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    with open("../model/data/raw/landmark_images/test/07.Stonehenge/7cadd9ffc1d24563.jpg", 'rb') as f:
+        img = f.read()
+    return {"Hello": predict(img)}
