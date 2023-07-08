@@ -4,7 +4,7 @@ from prediction import predict
 
 app = FastAPI(docs_url=None, redoc_url=None)
 
-origins = ["http://localhost:8080"]
+origins = ["http://localhost:5173"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,6 +16,6 @@ app.add_middleware(
 
 
 @app.post("/predict")
-async def predict_landmark(file: UploadFile):
-    img = await file.read()
+async def predict_landmark(image: UploadFile):
+    img = await image.read()
     return {"landmark": predict(img)}
