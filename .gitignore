@@ -1,8 +1,11 @@
-# Project files
+# Project files in model
 model/data/raw/landmark_images
 model/data/raw/*.pt
 model/mlruns
 model/checkpoints
+
+# Project file in frontend
+frontend/node_modules
 
 # IDE
 .idea
