@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 
-@app.get("/predict")
+@app.post("/predict")
 async def predict_landmark(file: UploadFile):
     img = await file.read()
     return {"landmark": predict(img)}
