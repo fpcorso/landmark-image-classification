@@ -4,25 +4,22 @@ import torch
 import torchvision.transforms as transforms
 
 
-model = torch.jit.load("transfer_exported.pt")
+model = torch.jit.load("../model/checkpoints/transfer_exported.pt")
 model.eval()
 
 
-def predict(image_bytes):
-    tensor = transforms.ToTensor()(image_bytes).unsqueeze_(0)
+def predict(image_bytes: bytes) -> str:
+    """Predict the landmark class of an image using a trained model."""
 
-    softmax = model(tensor).data.cpu().numpy().squeeze()
+    # Convert image to tensor.
+    image = Image.open(io.BytesIO(image_bytes))
+    tensor = transforms.ToTensor()(image).unsqueeze_(0)
 
-    # Get the indexes of the classes ordered by softmax
-    # (larger first)
-    idxs = np.argsort(softmax)[::-1]
+    # Make prediction.
+    softmax = model(tensor)
 
-    # Loop over the classes with the largest softmax
-    for i in range(5):
-        # Get softmax value
-        p = softmax[idxs[i]]
+    # Get index of predicted class.
+    _, y_hat = softmax.max(1)
+    predicted_idx = int(y_hat.item())
 
-        # Get class name
-        landmark_name = model.class_names[idxs[i]]
-
-        labels[i].value = f"{landmark_name} (prob: {p:.2f})"
+    return model.class_names[predicted_idx].split('.')[1]
