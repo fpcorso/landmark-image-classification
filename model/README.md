@@ -1,5 +1,11 @@
 # Landmark Image Classification Model
 
+This will be a Pytorch model that classifies images of landmarks. The model will be trained on the [Google Landmarks Dataset v2](https://www.kaggle.com/c/landmark-recognition-2020/overview).
+
+The setup command will download the dataset into the `data` folder.
+
+This model uses [MLflow](https://mlflow.org/) to track experiments and log metrics.
+
 ## Getting Started
 
 ### Install Dependencies
