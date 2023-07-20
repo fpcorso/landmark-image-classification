@@ -16,7 +16,7 @@ All the code for training, building, and deploying the model is within the `mode
 
 ### Backend
 
-The backed is built in Python using Fast API and can be found in the `backend` folder. The backend is responsible for serving the model and making predictions.
+The backed is built in Python using Fast API and can be found in the `backend` folder. The backend is responsible for serving the model and making predictions via the /predict endpoint.
 
 ### Frontend
 
