@@ -10,24 +10,33 @@
     </div>
   </section>
   <section class="section">
-    <h2 class="title is-4">Upload Your Image</h2>
-    <div class="file is-boxed">
-      <label class="file-label">
-        <input class="file-input" type="file" name="file" @change="readImage">
-        <span class="file-cta">
-          <span class="file-icon">
-            <i class="fas fa-upload"></i>
-          </span>
-          <span class="file-label">
-            Choose a file…
-          </span>
-        </span>
-      </label>
+    <div class="columns">
+
+      <div class="column">
+        <h2 class="title is-4">Upload Your Image</h2>
+        <figure class="image mb-4" v-if="preview">
+          <img :src="image" class="landmark-image">
+        </figure>
+        <div class="file is-boxed">
+          <label class="file-label">
+            <input class="file-input" type="file" name="file" @change="readImage">
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Choose an image...
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="column" v-if="landmarkKnown">
+        <h2 class="title is-4">Landmark Info</h2>
+        <p>This landmark is <span class="landmark-name">{{ landmark }}</span>.</p>
+      </div>
     </div>
-    <figure class="image is-128x128" v-if="preview">
-      <img :src="image">
-    </figure>
-    {{ landmark }}
   </section>
 </template>
 
@@ -41,7 +50,8 @@ export default {
       file: null,
       image: '',
       preview: false,
-      landmark: ''
+      landmark: '',
+      landmarkKnown: false
     };
   },
   methods: {
@@ -67,6 +77,7 @@ export default {
         },
       }).then((response) => {
         this.landmark = response.data.landmark;
+        this.landmarkKnown = true;
       }).catch((error) => {
         console.log(error);
       });
@@ -75,3 +86,17 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .landmark-image {
+    max-height: 200px;
+    width: 100%;
+  }
+
+  label.file-label {
+    width: 100%;
+  }
+  .landmark-name {
+    font-weight: bold;
+  }
+</style>
