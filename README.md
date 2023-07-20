@@ -2,7 +2,7 @@
 
 This is a quick proof-of-concept for building a model for image classification and then deploying it to be used in a web app using Fast API for backend and Vue for frontend.
 
-The model is built using Pytorch and I use MLflows to track experiments and log metrics.
+The model is built using Pytorch and I use MLflow to track experiments and log metrics.
 
 The model and training data was originally a part of a project I completed during the Udacity Deep Learning Nanodegree. The training data was provided by Udacity and is a subset of the [Google Landmark Recognition 2020](https://www.kaggle.com/c/landmark-recognition-2020) dataset.
 
