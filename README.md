@@ -1,13 +1,21 @@
 # Landmark Image Classification
 
-## Getting Started
+This is a quick proof-of-concept for building a model for image classification and then deploying it to be used in a web app using Fast API for backend and Vue for frontend.
 
-### Install Dependencies
+The model and training data was originally a part of a project I completed during the Udacity Deep Learning Nanodegree. The training data was provided by Udacity and is a subset of the [Google Landmark Recognition 2020](https://www.kaggle.com/c/landmark-recognition-2020) dataset.
 
-This project uses pip and requirements.txt for managing dependencies. To get started, run `pip install -r requirements.txt` to install all dependencies.
+## How the project is set up
 
-### Setting Up The Project
+The three components each have their own folder with their own readme within the project.
 
-This project uses `typer` to power some command line scripts which are located in `manage.py`. 
+### Model
 
-To get started, you can use the setup command using `python manage.py setup`. This will download the dataset and cache some needed values, such as ones for normalization.
+All the code for training, building, and deploying the model is within the `model` folder. I built one model from scratch using a CNN architecture and then a second one using transfer learning built on the ResNet50 model.
+
+### Backend
+
+The backed is built in Python using Fast API and can be found in the `backend` folder. The backend is responsible for serving the model and making predictions.
+
+### Frontend
+
+The frontend is built in Vue and can be found in the `frontend` folder. The frontend is responsible for displaying the web app and making requests to the backend.
